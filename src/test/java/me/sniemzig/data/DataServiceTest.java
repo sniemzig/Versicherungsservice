@@ -1,20 +1,16 @@
 package me.sniemzig.data;
 
-import me.sniemzig.data.db.CalculationRepository;
 import me.sniemzig.shared.Calculation;
 import me.sniemzig.shared.CalculationParams;
 import me.sniemzig.shared.Region;
 import me.sniemzig.shared.VehicleType;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import java.util.HashMap;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,9 +1,6 @@
 package me.sniemzig.shared;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
 
 import java.util.Optional;
 

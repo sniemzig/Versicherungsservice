@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import me.sniemzig.shared.Calculation;
-import me.sniemzig.data.db.CalculationRepository;
 import me.sniemzig.shared.Region;
 import me.sniemzig.shared.VehicleType;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static me.sniemzig.Util.readResource;
 
 /**
  * Service for handling operations lik retrieving possible parameters related to insurance calculations.
@@ -87,17 +86,10 @@ public class DataService {
     private HashMap<Integer, Region> get_postcode_mapping() {
         var objectMapper = new ObjectMapper();
         try {
-            return objectMapper.readValue(readPostcodeFile(), new TypeReference<>() {});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private String readPostcodeFile() {
-        try (InputStream in = getClass().getClassLoader().getResourceAsStream("postcode_mapping.json")) {
-            if (in == null)
-                throw new IllegalArgumentException("Resource not found: " + "postcode_mapping.json");
-            return new String(in.readAllBytes(), StandardCharsets.UTF_8);
+            return objectMapper.readValue(
+                    readResource("postcode_mapping.json"),
+                    new TypeReference<>() {}
+            );
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
