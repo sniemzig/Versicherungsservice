@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Versicherungs Rechner</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h1 class="text-center mb-4">Versicherungs Rechner</h1>
+
+      <form action="/calculate" method="get">
+        <div class="mb-3">
+          <label for="postcode" class="form-label">Postleitzahl</label>
+          <input type="number" id="postcode" name="postcode" class="form-control" required
+                 th:value="${postcode}">
+        </div>
+
+        <div class="mb-3">
+          <label for="kilometers" class="form-label">Kilometerleistung</label>
+          <input type="number" id="kilometers" name="kilometers" class="form-control" required
+                 th:value="${kilometers}">
+        </div>
+
+        <div class="mb-3">
+          <label for="vehicleType" class="form-label">Fahrzeugtyp</label>
+          <select id="vehicleType" name="vehicleType" class="form-select" required>
+            <option th:each="type : ${vehicleTypes}"
+                    th:value="${type}"
+                    th:text="${type}"
+                    th:selected="${type == vehicleType}"></option>
+          </select>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Berechnen</button>
+        </div>
+      </form>
+
+      <div th:if="${calculation != null}" class="mt-4">
+        <h4 class="text-center">Die berechnete Prämie beträgt:</h4>
+        <h3 th:text="${calculation.premium} + '€'" class="h3 text-center"></h3>
+      </div>
+
+      <div th:if="${error != null}" class="mt-4">
+        <h2 class="text-center text-danger">Error</h2>
+        <p th:text="${error}" class="text-center text-danger"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

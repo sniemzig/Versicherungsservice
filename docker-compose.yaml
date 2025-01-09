@@ -1,0 +1,22 @@
+services:
+  application:
+    build: .
+    ports:
+      - "80:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://${DB_USER}:${DB_PASSWORD}@mongo-db:27017/${DB_NAME}?authSource=admin
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    container_name: mongo-db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DB_NAME}
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
